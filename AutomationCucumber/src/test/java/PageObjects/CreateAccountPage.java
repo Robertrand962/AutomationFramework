@@ -142,6 +142,7 @@ public class CreateAccountPage {
         Assert.assertTrue(ErrorMessage.contains(Constants.ZipCodeRequired));
         Assert.assertTrue(ErrorMessage.contains(Constants.StateRequired));
     }
+
     public void FillInvalidFields(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException {
         ExcelReader reader = new ExcelReader();
         List<Map<String, String>> testData = reader.getData(GlobalProperties.getProperties("DataSheet"), sheetname);
@@ -155,6 +156,7 @@ public class CreateAccountPage {
         HelperMethods.enterText(ZipCodeTextBoxAddress, zipcode);
         HelperMethods.enterText(MobilePhoneTextBoxAddress, phoneMobile);
     }
+
     public void VerifyMandatoryFieldsAlertInvalid() {
         HelperMethods.waitForElement(MandatoryFieldsAlert);
         String ErrorMessageInvalid = HelperMethods.getText(MandatoryFieldsAlert);

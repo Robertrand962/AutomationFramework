@@ -1,9 +1,16 @@
 package PageObjects;
 
+import Excel.ExcelReader;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import utils.GlobalProperties;
 import utils.HelperMethods;
 import utils.TestSetup;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class HomePage {
     // Constructor.
@@ -40,16 +47,21 @@ public class HomePage {
         HelperMethods.isEleVisible(NavigationPage);
     }
 
-    public void setInvalidEmail(String invalidEmail) {
+    public void setInvalidEmail(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException {
+        ExcelReader reader = new ExcelReader();
+        List<Map<String, String>> testData = reader.getData(GlobalProperties.getProperties("DataSheet"), sheetname);
+        String invalidEmail = testData.get(rowNumber).get("InvalidEmail");
         HelperMethods.enterText(CreateEmailTextBox, invalidEmail);
         HelperMethods.click(CreateAccountBtn);
         HelperMethods.waitForElement(ErrorMessage);
     }
 
-    public void setValidEmail(String validEmail) {
-        HelperMethods.enterText(CreateEmailTextBox, validEmail);
+    public void setValidEmail(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException {
+        ExcelReader reader = new ExcelReader();
+        List<Map<String, String>> testData = reader.getData(GlobalProperties.getProperties("DataSheet"), sheetname);
+        String Email = testData.get(rowNumber).get("Email");
+        HelperMethods.enterText(CreateEmailTextBox, Email);
         HelperMethods.click(CreateAccountBtn);
-
     }
 
     public void verifyErrorMessage(String message) {

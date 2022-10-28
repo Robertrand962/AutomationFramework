@@ -23,13 +23,13 @@ public class CreateAccountPageStepDefinition {
         this.createAccountPage = testSetup.pageObjectManager.getCreateAccountPage();
     }
 
-    @Then("^User is in create an account page.$")
+    @Then("User is in create an account page.")
     public void user_is_in_create_an_account_page() {
         createAccountPage.CreateAccountPageIsDisplayed();
     }
 
 
-    @Then("^User submit personal information and create an account$")
+    @Then("User submit personal information and create an account")
     public void userClickSubmitPersonalInformationAndCreateAnAccount() {
         createAccountPage.ClickRegisterBtn();
     }

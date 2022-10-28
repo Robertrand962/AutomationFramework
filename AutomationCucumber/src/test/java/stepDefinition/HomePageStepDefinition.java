@@ -2,10 +2,10 @@ package stepDefinition;
 
 import Excel.ExcelReader;
 import PageObjects.HomePage;
+import com.sun.media.sound.InvalidFormatException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import utils.GlobalProperties;
 import utils.TestSetup;
 
@@ -23,7 +23,7 @@ public class HomePageStepDefinition {
         this.homePage = testSetup.pageObjectManager.getHomePage();
     }
 
-    @Given("^User is on AutomationPractice page$")
+    @Given("User is on AutomationPractice page")
     public void user_is_on_AutomationPractice_page() throws Exception {
         homePage.homePageIsDisplayed();
     }
@@ -45,14 +45,14 @@ public class HomePageStepDefinition {
         homePage.isAccountPageDisplayed();
     }
 
-    @Then("^User submits invalid (.+)$")
-    public void user_submits_invalid_email(String invalidEmail) throws InterruptedException {
-        homePage.setInvalidEmail(invalidEmail);
+    @Then("User submits invalid email using {string} and {int}")
+    public void user_submits_invalid_email(String sheetname, Integer rowNumber) throws InterruptedException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+        homePage.setInvalidEmail(sheetname, rowNumber);
     }
 
-    @Then("^User submits valid (.+)$")
-    public void user_submits_valid_Email(String validEmail) {
-        homePage.setValidEmail(validEmail);
+    @Then("User submits email using {string} and {int}")
+    public void user_submits_valid_Email(String sheetname,Integer rowNumber) throws IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+        homePage.setValidEmail(sheetname,rowNumber);
     }
 
     @Then("^User validates error (.+)$")
@@ -61,17 +61,12 @@ public class HomePageStepDefinition {
     }
 
     @Then("User fills the email from given sheetname {string} and rownumber {int}")
-    public void userFillsTheEmailFromGivenSheetnameAndrownumber(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException {
-        ExcelReader reader = new ExcelReader();
-        List<Map<String, String>> testData = reader.getData(GlobalProperties.getProperties("DataSheet"), sheetname);
-        // retrieve data from sheet.
-        String email = testData.get(rowNumber).get("Email");
-        // Send data to method.
-        homePage.setValidEmail(email);
+    public void userFillsTheEmailFromGivenSheetnameAndrownumber(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+        homePage.setValidEmail(sheetname, rowNumber);
     }
 
     @Then("User logins using data from {string} and {int}")
-    public void userLoginsUsingDataFromAndRowNumber(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException {
+    public void userLoginsUsingDataFromAndRowNumber(String sheetname, Integer rowNumber) throws IOException, InvalidFormatException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
         ExcelReader reader = new ExcelReader();
         List<Map<String, String>> testData = reader.getData(GlobalProperties.getProperties("DataSheet"), sheetname);
         // retrieve data from sheet.
