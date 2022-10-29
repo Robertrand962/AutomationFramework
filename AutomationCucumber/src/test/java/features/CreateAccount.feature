@@ -1,6 +1,6 @@
 Feature: Create Account
 
-@CreateAccount
+  @CreateAccount
   Scenario Outline: 2. Verify invalid email address error
     Given User is on AutomationPractice page
     When User click sign in.
@@ -43,7 +43,7 @@ Feature: Create Account
 
     Examples:
       | SheetName  | RowNumber |
-      | ValidEmail | 0         |
+      | ValidEmail | 2         |
 
   Scenario Outline: 4. Verify error messages for entering incorrect values in fields
     Given User is on AutomationPractice page
